@@ -3,7 +3,7 @@ import { Weather } from '../types';
 const API_BASE_URL = 'https://api.openweathermap.org/';
 const API_KEY = process.env.WEATHER_API_KEY;
 
-export const getCountryWeatherPosts = async (
+export const getCountryWeatherPost = async (
 	country: string
 ): Promise<Weather> => {
 	try {
