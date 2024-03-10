@@ -2,9 +2,9 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { Weather } from '../types';
 import { getCountryWeatherPost } from '../services/Api';
 
-const CELSIUS_CHANGE_RATE = 273.15;
-const MS_KMH_RATE = 3.6;
-const BASE_WEATHER_ICONS_URL = 'https://openweathermap.org/img/wn/';
+const CELSIUS_CHANGE_RATE: number = 273.15;
+const MS_KMH_RATE: number = 3.6;
+const BASE_WEATHER_ICONS_URL: string = "https://openweathermap.org/img/wn/";
 
 type WeatherContextType = {
 	country1: string;
