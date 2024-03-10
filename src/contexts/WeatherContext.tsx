@@ -2,6 +2,10 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { Weather } from '../types';
 import { getCountryWeatherPost } from '../services/Api';
 
+const CELSIUS_CHANGE_RATE = 273.15;
+const MS_KMH_RATE = 3.6;
+const BASE_WEATHER_ICONS_URL = 'https://openweathermap.org/img/wn/';
+
 type WeatherContextType = {
 	country1: string;
 	setCountry1: React.Dispatch<React.SetStateAction<string>>;
@@ -11,6 +15,10 @@ type WeatherContextType = {
 	setCountry2: React.Dispatch<React.SetStateAction<string>>;
 	weatherData2: Weather | null;
 	handleSubmit2: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+	kelvinToCelsius: (kelvin: number) => number;
+	msToKmh: (windSpeedM: number) => number;
+	getIconFileName: (icon: string) => string;
+	capitalizeString: (str: string) => string;
 };
 
 type WeatherProviderProps = {
@@ -56,6 +64,54 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
 		}
 	};
 
+	function kelvinToCelsius(kelvin: number): number {
+		return Number((kelvin - CELSIUS_CHANGE_RATE).toFixed(1));
+	}
+
+	function msToKmh(windSpeedMs: number): number {
+		const windSpeedKmh = windSpeedMs * MS_KMH_RATE;
+
+		return Number(windSpeedKmh.toFixed(1));
+	}
+
+	function capitalizeString(str: string): string {
+		if (!str) return '';
+		const words = str.split(' ');
+		if (words.length === 1) {
+			return str.charAt(0).toUpperCase() + str.slice(1);
+		} else {
+			return (
+				words[0].charAt(0).toUpperCase() + words[0].slice(1) + ' ' + words[1]
+			);
+		}
+	}
+
+	function getIconFileName(icon: string): string {
+		switch (icon) {
+			case '01d':
+			case '01n':
+			case '02d':
+			case '02n':
+			case '03d':
+			case '03n':
+			case '04d':
+			case '04n':
+			case '09d':
+			case '09n':
+			case '10d':
+			case '10n':
+			case '11d':
+			case '11n':
+			case '13d':
+			case '13n':
+			case '50d':
+			case '50n':
+				return `${BASE_WEATHER_ICONS_URL}${icon}@2x.png`;
+			default:
+				return icon;
+		}
+	}
+
 	const value: WeatherContextType = {
 		country1,
 		setCountry1,
@@ -65,6 +121,10 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
 		setCountry2,
 		weatherData2,
 		handleSubmit2,
+		kelvinToCelsius,
+		msToKmh,
+		getIconFileName,
+		capitalizeString,
 	};
 
 	return (
