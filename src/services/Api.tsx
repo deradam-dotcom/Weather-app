@@ -1,6 +1,6 @@
 import { Weather } from '../types';
 
-const API_BASE_URL = 'https://api.openweathermap.org/';
+const API_BASE_URL: string = "https://api.openweathermap.org/";
 const API_KEY: string | undefined = process.env.REACT_APP_WEATHER_API_KEY;
 
 export const getCountryWeatherPost = async (
