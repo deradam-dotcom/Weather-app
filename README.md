@@ -1,6 +1,6 @@
 ***SETUP***
 
-1. cp env.example .env 
+1. cp env.local .env 
 ```
  Add your current REACT_APP_WEATHER_API_KEY to your .env file 
 ```
