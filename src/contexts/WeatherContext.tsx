@@ -19,6 +19,7 @@ type WeatherContextType = {
 	msToKmh: (windSpeedM: number) => number;
 	getIconFileName: (icon: string) => string;
 	capitalizeString: (str: string) => string;
+	getBackgroundImageForWeather: (condition: string) => string;
 };
 
 type WeatherProviderProps = {
@@ -111,6 +112,36 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
 				return icon;
 		}
 	}
+	function getBackgroundImageForWeather(condition: string): string {
+		let weatherCondition: string;
+
+		switch (condition) {
+			case 'Rain':
+				weatherCondition = 'rain.png';
+				break;
+			case 'Mist':
+				weatherCondition = 'mist.png';
+				break;
+			case 'Thunderstorm':
+				weatherCondition = 'thunderstorm.png';
+				break;
+			case 'Snow':
+				weatherCondition = 'snow.png';
+				break;
+			case 'Clouds':
+				weatherCondition = 'clouds.png';
+				break;
+			case 'Clear':
+				weatherCondition = 'clear_sky.png';
+				break;
+			case 'Atmosphere':
+				weatherCondition = 'atmosphere.png';
+				break;
+			default:
+				return 'clear.png';
+		}
+		return weatherCondition;
+	}
 
 	const value: WeatherContextType = {
 		country1,
@@ -125,6 +156,7 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
 		msToKmh,
 		getIconFileName,
 		capitalizeString,
+		getBackgroundImageForWeather,
 	};
 
 	return (

@@ -10,11 +10,21 @@ function App() {
 		handleSubmit2,
 		setCountry2,
 		weatherData2,
+		getBackgroundImageForWeather,
 	} = useWeatherContext();
 
 	return (
 		<div className="flex w-full h-screen">
-			<div className="flex-1 h-full flex justify-center items-center">
+			<div
+				className="flex-1 h-full flex justify-center items-center"
+				style={{
+					background: weatherData1
+						? `url(${process.env.PUBLIC_URL}/${getBackgroundImageForWeather(
+								weatherData1?.weather[0]?.main
+						  )}) center/cover no-repeat`
+						: 'white',
+				}}
+			>
 				<WeatherCard
 					gradientColor={GradientColor.TealToBlue}
 					onSubmit={handleSubmit1}
@@ -22,7 +32,16 @@ function App() {
 					weatherData={weatherData1}
 				/>
 			</div>
-			<div className="flex-1 h-full flex justify-center items-center">
+			<div
+				className="flex-1 h-full flex justify-center items-center"
+				style={{
+					background: weatherData2
+						? `url(${process.env.PUBLIC_URL}/${getBackgroundImageForWeather(
+								weatherData2?.weather[0]?.main
+						  )}) center/cover no-repeat`
+						: 'white',
+				}}
+			>
 				<WeatherCard
 					gradientColor={GradientColor.YellowToMagenta}
 					onSubmit={handleSubmit2}
