@@ -14,7 +14,7 @@ function App() {
 	} = useWeatherContext();
 
 	return (
-		<div className="flex w-full h-screen">
+		<div className="flex flex-col lg:flex-row w-full h-screen">
 			<div
 				className="flex-1 h-full flex justify-center items-center"
 				style={{
@@ -33,7 +33,7 @@ function App() {
 				/>
 			</div>
 			<div
-				className="flex-1 h-full flex justify-center items-center"
+				className="flex-1 h-auto flex justify-center items-center"
 				style={{
 					background: weatherData2
 						? `url(${process.env.PUBLIC_URL}/${getBackgroundImageForWeather(
