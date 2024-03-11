@@ -7,22 +7,24 @@ import HumidityIcon from '../../assets/humidity.png';
 import WindIcon from '../../assets/wind.png';
 
 type WeatherCardProps = {
-	gradientColor: GradientColor;
-	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-	setCountry: React.Dispatch<React.SetStateAction<string>>;
-	weatherData: Weather | null;
+  gradientColor: GradientColor;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  setCountry: React.Dispatch<React.SetStateAction<string>>;
+  weatherData: Weather | null;
+  loading: boolean;
 };
 
 const WeatherCard: React.FC<WeatherCardProps> = ({
-	gradientColor,
-	onSubmit,
-	setCountry,
-	weatherData,
+  gradientColor,
+  onSubmit,
+  setCountry,
+  weatherData,
+  loading,
 }) => {
-	const { kelvinToCelsius, msToKmh, getIconFileName, capitalizeString } =
-		useWeatherContext();
+  const { kelvinToCelsius, msToKmh, getIconFileName, capitalizeString } =
+    useWeatherContext();
 
-	return (
+  return (
     <div
       className={`flex flex-col w-[300px] lg:w-auto  h-[550px] lg:h-[829px] my-10 lg:mt-[0px] rounded-[12px] bg-gradient-to-b ${gradientColor} shadow-2xl transform hover:scale-105 transition-transform duration-300`}
     >
@@ -111,11 +113,15 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
         </div>
       ) : (
         <div className="flex flex-grow justify-center items-center mb-10 text-[20px] font-bold text-text">
-          <h1 className="text-center">
-            CHOOSE A CAPITAL OR COUNTRY
-            <br />
-            TO GET THE CURRENT WEATHER CONDITIONS
-          </h1>
+          {loading ? (
+            <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-purple-400"></div>
+          ) : (
+            <h1 className="text-center">
+              CHOOSE A CAPITAL OR COUNTRY
+              <br />
+              TO GET THE CURRENT WEATHER CONDITIONS
+            </h1>
+          )}
         </div>
       )}
     </div>
